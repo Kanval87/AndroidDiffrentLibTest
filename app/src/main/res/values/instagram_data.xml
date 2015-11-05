@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="instagram_api_tag_media">https://api.instagram.com/v1/tags/{tag}/media/recent/?client_id={client_id}</string>
+    <string name="instagram_client_id">b27c76f98abc441998ac188f7a369219</string>
+    <integer name="instagram_retry_limit">5</integer>
+</resources>
