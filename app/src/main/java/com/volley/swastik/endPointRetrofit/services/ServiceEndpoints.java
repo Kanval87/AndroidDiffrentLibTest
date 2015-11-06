@@ -5,9 +5,9 @@ import com.volley.swastik.endPointRetrofit.services.endPoint.InstagramEndPoint;
 
 public class ServiceEndpoints {
 
-    private ServiceEndpoints serviceEndpoints;
+    private static ServiceEndpoints serviceEndpoints;
 
-    public ServiceEndpoints getInstance() {
+    public static ServiceEndpoints getInstance() {
         if (serviceEndpoints == null) {
             serviceEndpoints = new ServiceEndpoints();
         }

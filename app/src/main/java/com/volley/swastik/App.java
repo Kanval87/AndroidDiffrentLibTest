@@ -1,5 +1,6 @@
 package com.volley.swastik;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.graphics.Point;
@@ -8,8 +9,12 @@ import android.net.NetworkInfo;
 import android.view.Display;
 import android.view.WindowManager;
 
-public class App extends Application{
+import java.lang.ref.WeakReference;
+
+public class App extends Application {
     private static App instance;
+
+    private WeakReference<Activity> foregroundActivity;
 
     public String getApiEndpoint() {
         return "https://api.instagram.com";
@@ -22,7 +27,7 @@ public class App extends Application{
         instance = this;
     }
 
-    public static App getInstance(){
+    public static App getInstance() {
         return instance;
     }
 
@@ -32,11 +37,19 @@ public class App extends Application{
         return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 
-    public static Point getScreenSize(){
+    public static Point getScreenSize() {
         WindowManager windowManager = (WindowManager) instance.getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
         Display display = windowManager.getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
         return size;
+    }
+
+    public Activity getForegroundActivity() {
+        return foregroundActivity != null ? foregroundActivity.get() : null;
+    }
+
+    public void setForegroundActivity(Activity foregroundActivity) {
+        this.foregroundActivity = new WeakReference<>(foregroundActivity);
     }
 }
