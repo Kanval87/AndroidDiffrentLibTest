@@ -1,7 +1,7 @@
-package com.volley.swastik.retrofitJob.future;
+package com.volley.swastik.retrofit.jobs.future;
 
 
-import com.volley.swastik.endPointRetrofit.services.ServiceResponse;
+import com.volley.swastik.retrofit.services.ServiceResponse;
 
 public abstract class Future<T> {
     private boolean pending = true;

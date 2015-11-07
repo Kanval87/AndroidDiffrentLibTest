@@ -1,4 +1,4 @@
-package com.volley.swastik.endPointRetrofit.services;
+package com.volley.swastik.retrofit.services;
 
 import com.google.gson.GsonBuilder;
 import com.squareup.okhttp.Cache;

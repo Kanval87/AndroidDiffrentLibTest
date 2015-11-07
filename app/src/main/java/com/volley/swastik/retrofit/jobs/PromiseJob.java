@@ -1,11 +1,11 @@
-package com.volley.swastik.retrofitJob;
+package com.volley.swastik.retrofit.jobs;
 
 
 import com.path.android.jobqueue.Job;
 import com.path.android.jobqueue.Params;
 import com.volley.swastik.App;
-import com.volley.swastik.retrofitJob.future.Future;
-import com.volley.swastik.retrofitJob.future.FutureOnUiThread;
+import com.volley.swastik.retrofit.jobs.future.Future;
+import com.volley.swastik.retrofit.jobs.future.FutureOnUiThread;
 import com.volley.swastik.utils.JobKeyUtil;
 
 import java.lang.ref.WeakReference;
@@ -36,6 +36,16 @@ public abstract class PromiseJob<PromiseResult> extends Job {
     private static PromiseJob jobForKey(String key) {
         WeakReference<PromiseJob> jobWeak = PromiseJob.jobHashMap.get(key);
         return (jobWeak == null) ? jobWeak.get() : null;
+    }
+
+    @Override
+    public void onAdded() {
+
+    }
+
+    @Override
+    protected boolean shouldReRunOnThrowable(Throwable throwable) {
+        return false;
     }
 
     @Override

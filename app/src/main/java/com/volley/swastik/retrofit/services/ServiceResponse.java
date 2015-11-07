@@ -1,4 +1,4 @@
-package com.volley.swastik.endPointRetrofit.services;
+package com.volley.swastik.retrofit.services;
 
 
 import com.volley.swastik.enums.ServiceResponseTypeEnum;

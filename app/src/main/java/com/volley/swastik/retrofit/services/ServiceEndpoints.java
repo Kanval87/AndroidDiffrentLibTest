@@ -1,7 +1,7 @@
-package com.volley.swastik.endPointRetrofit.services;
+package com.volley.swastik.retrofit.services;
 
 
-import com.volley.swastik.endPointRetrofit.services.endPoint.InstagramEndPoint;
+import com.volley.swastik.retrofit.services.endPoint.InstagramEndPoint;
 
 public class ServiceEndpoints {
 

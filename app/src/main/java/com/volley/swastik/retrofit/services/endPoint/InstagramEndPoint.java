@@ -1,6 +1,6 @@
-package com.volley.swastik.endPointRetrofit.services.endPoint;
+package com.volley.swastik.retrofit.services.endPoint;
 
-import com.volley.swastik.endPointRetrofit.services.Services;
+import com.volley.swastik.retrofit.services.Services;
 
 import retrofit.Call;
 import retrofit.http.GET;
