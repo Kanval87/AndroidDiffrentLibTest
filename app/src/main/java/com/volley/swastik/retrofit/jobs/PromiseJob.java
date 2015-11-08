@@ -8,6 +8,7 @@ import com.volley.swastik.retrofit.jobs.future.Future;
 import com.volley.swastik.retrofit.jobs.future.FutureOnUiThread;
 import com.volley.swastik.utils.JobKeyUtil;
 
+import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
@@ -112,7 +113,7 @@ public abstract class PromiseJob<PromiseResult> extends Job {
         }
     }
 
-    protected abstract void execute();
+    protected abstract void execute() throws IOException;
 
     private String generateKey() {
         if (key == null) {

@@ -16,7 +16,7 @@ public class ServiceEndpoints {
 
     private InstagramEndPoint instagramEndPoint;
 
-    private InstagramEndPoint.EndPoint getInstagramEndPoint() {
+    public InstagramEndPoint.EndPoint getInstagramEndPoint() {
         if (instagramEndPoint == null) {
             instagramEndPoint = new InstagramEndPoint();
         }

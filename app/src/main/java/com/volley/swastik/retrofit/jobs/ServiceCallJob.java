@@ -24,16 +24,10 @@ public abstract class ServiceCallJob<ResultDataType> extends PromiseJob<ResultDa
     }
 
     @Override
-    protected void execute() {
+    protected abstract void execute() throws IOException;
 
-    }
 
-    @Override
-    public void onAdded() {
-
-    }
-
-    public ServiceResponse<ResultDataType> handleRetrofitCall(Call<ResultDataType> call){
+    public ServiceResponse<ResultDataType> handleRetrofitCall(Call<?> call){
         int retriesLeft = 10;
 
         ServiceResponse<ResultDataType> returnValue = null;
