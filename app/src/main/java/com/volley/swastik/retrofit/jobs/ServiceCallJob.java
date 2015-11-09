@@ -34,7 +34,7 @@ public abstract class ServiceCallJob<ResultDataType> extends PromiseJob<ResultDa
 
         while (retriesLeft > 0) {
             try {
-                Response<ResultDataType> serviceModelResponse = call.execute();
+                Response<?> serviceModelResponse = call.execute();
 
                 if (serviceModelResponse == null) {
                     returnValue = new ServiceResponse<>(null, ServiceResponseTypeEnum.NONE, 0);

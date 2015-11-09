@@ -6,17 +6,17 @@ import com.volley.swastik.enums.ServiceResponseTypeEnum;
 import retrofit.Response;
 
 public class ServiceResponse<ServiceModel> {
-    private final Response<ServiceModel> serviceResponse;
+    private final Response<?> serviceResponse;
     private final ServiceResponseTypeEnum responseType;
     private final int responseCode;
 
-    public ServiceResponse(Response<ServiceModel> serviceModelResponse, ServiceResponseTypeEnum responseType, int responseCode) {
+    public ServiceResponse(Response<?> serviceModelResponse, ServiceResponseTypeEnum responseType, int responseCode) {
         this.serviceResponse = serviceModelResponse;
         this.responseType = responseType;
         this.responseCode = responseCode;
     }
 
-    public Response<ServiceModel> getServiceResponse() {
+    public Response<?> getServiceResponse() {
         return serviceResponse;
     }
 
