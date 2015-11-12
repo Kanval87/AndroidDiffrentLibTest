@@ -30,7 +30,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -190,7 +189,8 @@ public class MainActivity extends AppCompatActivity {
             Log.i("result", result.toString());
             scanResults.add(result);
             if (myRecyclerAdapter == null) {
-                myRecyclerAdapter = new MyRecyclerAdapter(MainActivity.this , scanResults);
+                myRecyclerAdapter = new MyRecyclerAdapter(MainActivity.this, scanResults);
+                mRecyclerView.setAdapter(myRecyclerAdapter);
             }
             BluetoothDevice btDevice = result.getDevice();
             connectToDevice(btDevice);
