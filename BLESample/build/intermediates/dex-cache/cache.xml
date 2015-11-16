@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/home/kanvalkalra/AndroidStudioProjects/BLESample/Application/build/intermediates/exploded-aar/com.android.support/cardview-v7/23.0.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="1ccbc26be2c465c622a48310e8092241b01abe80">
+        <dex dex="/home/kanvalkalra/AndroidStudioProjects/BLESample/Application/build/intermediates/pre-dexed/debug/classes-eed094e4bf86c59100897191fe24a9c10d4d1d33.jar" />
+    </item>
+    <item
+        jar="/home/kanvalkalra/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/23.0.0/support-annotations-23.0.0.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="990e7f98a7bad86a40b1f0bcfeb039023afd0839">
+        <dex dex="/home/kanvalkalra/AndroidStudioProjects/BLESample/Application/build/intermediates/pre-dexed/debug/support-annotations-23.0.0-adc72bd4ef450f7b8840efb1f0ce90f22853d252.jar" />
+    </item>
+    <item
+        jar="/home/kanvalkalra/AndroidStudioProjects/BLESample/Application/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="8413c27b45b7fe61dca4a98159f65e2cee215f5a">
+        <dex dex="/home/kanvalkalra/AndroidStudioProjects/BLESample/Application/build/intermediates/pre-dexed/debug/classes-22fd0c31469bf9b770d086b2032c1f01115bf353.jar" />
+    </item>
+    <item
+        jar="/home/kanvalkalra/AndroidStudioProjects/BLESample/Application/build/intermediates/exploded-aar/com.android.support/support-v13/23.0.0/jars/libs/internal_impl-23.0.0.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="5d4bccb885c8a89d066ecb6c4addb553a99a79a2">
+        <dex dex="/home/kanvalkalra/AndroidStudioProjects/BLESample/Application/build/intermediates/pre-dexed/debug/internal_impl-23.0.0-0d8a6cf3ef1d48f7fa2d8b2dcd50b3457c854ea8.jar" />
+    </item>
+    <item
+        jar="/home/kanvalkalra/AndroidStudioProjects/BLESample/Application/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.0/jars/libs/internal_impl-23.0.0.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="8bd336eeae661e8311330284897ee07f8ebaa297">
+        <dex dex="/home/kanvalkalra/AndroidStudioProjects/BLESample/Application/build/intermediates/pre-dexed/debug/internal_impl-23.0.0-714d1855e9a153ce136df6b757095a7732b9387c.jar" />
+    </item>
+    <item
+        jar="/home/kanvalkalra/AndroidStudioProjects/BLESample/Application/build/intermediates/exploded-aar/com.android.support/support-v13/23.0.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="bb0ac3f3ee2d71854501cc28e52cc84a20209b41">
+        <dex dex="/home/kanvalkalra/AndroidStudioProjects/BLESample/Application/build/intermediates/pre-dexed/debug/classes-0ef55f7d949946bd154a20d1cfd37e2063f059e0.jar" />
+    </item>
+
+</items>

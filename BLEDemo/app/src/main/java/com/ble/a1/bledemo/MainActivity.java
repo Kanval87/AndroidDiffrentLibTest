@@ -61,9 +61,9 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         recyclerView = (RecyclerView) findViewById(R.id.list);
-        SimpleAdapter simpleAdapter = new SimpleAdapter(recyclerView);
-        recyclerView.setAdapter(simpleAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+//        SimpleAdapter simpleAdapter = new SimpleAdapter(recyclerView);
+//        recyclerView.setAdapter(simpleAdapter);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
 
         mHandler = new Handler();
@@ -194,10 +194,11 @@ public class MainActivity extends AppCompatActivity {
         public void onScanResult(int callbackType, ScanResult result) {
             Log.i("callbackType", String.valueOf(callbackType));
             Log.i("result", result.toString());
-//            scanResults.add(result);
+            scanResults.add(result);
 //            if (myRecyclerAdapter == null) {
-//                myRecyclerAdapter = new MyRecyclerAdapter(MainActivity.this, scanResults);
-//                recyclerView.setAdapter(myRecyclerAdapter);
+            myRecyclerAdapter = new MyRecyclerAdapter(context, scanResults);
+            recyclerView.setAdapter(myRecyclerAdapter);
+            recyclerView.setLayoutManager(new LinearLayoutManager(context));
 //            }
             BluetoothDevice btDevice = result.getDevice();
             connectToDevice(btDevice);
