@@ -33,6 +33,55 @@ public class SampleGattAttributes {
         // Sample Characteristics.
         attributes.put(HEART_RATE_MEASUREMENT, "Heart Rate Measurement");
         attributes.put("00002a29-0000-1000-8000-00805f9b34fb", "Manufacturer Name String");
+
+        attributes.put("0000180a-0000-1000-8000-00805f9b34fb", "UUID_DEVINFO_SERV ");
+        attributes.put("00002A26-0000-1000-8000-00805f9b34fb", "UUID_DEVINFO_FWREV ");
+
+        attributes.put("f000aa00-0451-4000-b000-000000000000", "UUID_IRT_SERV ");
+        attributes.put("f000aa01-0451-4000-b000-000000000000", "UUID_IRT_DATA ");
+        attributes.put("f000aa02-0451-4000-b000-000000000000", "UUID_IRT_CONF "); // 0: disable, 1: enable
+        attributes.put("f000aa03-0451-4000-b000-000000000000", "UUID_IRT_PERI "); // Period in tens of milliseconds
+
+        attributes.put("f000aa10-0451-4000-b000-000000000000", "UUID_ACC_SERV ");
+        attributes.put("f000aa11-0451-4000-b000-000000000000", "UUID_ACC_DATA ");
+        attributes.put("f000aa12-0451-4000-b000-000000000000", "UUID_ACC_CONF "); // 0: disable, 1: enable
+        attributes.put("f000aa13-0451-4000-b000-000000000000", "UUID_ACC_PERI "); // Period in tens of milliseconds
+
+        attributes.put("f000aa20-0451-4000-b000-000000000000", "UUID_HUM_SERV ");
+        attributes.put("f000aa21-0451-4000-b000-000000000000", "UUID_HUM_DATA ");
+        attributes.put("f000aa22-0451-4000-b000-000000000000", "UUID_HUM_CONF "); // 0: disable, 1: enable
+        attributes.put("f000aa23-0451-4000-b000-000000000000", "UUID_HUM_PERI "); // Period in tens of milliseconds
+
+        attributes.put("f000aa30-0451-4000-b000-000000000000", "UUID_MAG_SERV ");
+        attributes.put("f000aa31-0451-4000-b000-000000000000", "UUID_MAG_DATA ");
+        attributes.put("f000aa32-0451-4000-b000-000000000000", "UUID_MAG_CONF "); // 0: disable, 1: enable
+        attributes.put("f000aa33-0451-4000-b000-000000000000", "UUID_MAG_PERI "); // Period in tens of milliseconds
+
+        attributes.put("f000aa70-0451-4000-b000-000000000000", "UUID_OPT_SERV ");
+        attributes.put("f000aa71-0451-4000-b000-000000000000", "UUID_OPT_DATA ");
+        attributes.put("f000aa72-0451-4000-b000-000000000000", "UUID_OPT_CONF "); // 0: disable, 1: enable
+        attributes.put("f000aa73-0451-4000-b000-000000000000", "UUID_OPT_PERI "); // Period in tens of milliseconds
+
+        attributes.put("f000aa40-0451-4000-b000-000000000000", "UUID_BAR_SERV ");
+        attributes.put("f000aa41-0451-4000-b000-000000000000", "UUID_BAR_DATA ");
+        attributes.put("f000aa42-0451-4000-b000-000000000000", "UUID_BAR_CONF "); // 0: disable, 1: enable
+        attributes.put("f000aa43-0451-4000-b000-000000000000", "UUID_BAR_CALI "); // Calibration characteristic
+        attributes.put("f000aa44-0451-4000-b000-000000000000", "UUID_BAR_PERI "); // Period in tens of milliseconds
+
+        attributes.put("f000aa50-0451-4000-b000-000000000000", "UUID_GYR_SERV ");
+        attributes.put("f000aa51-0451-4000-b000-000000000000", "UUID_GYR_DATA ");
+        attributes.put("f000aa52-0451-4000-b000-000000000000", "UUID_GYR_CONF "); // 0: disable, bit 0: enable x, bit 1: enable y, bit 2: enable z
+        attributes.put("f000aa53-0451-4000-b000-000000000000", "UUID_GYR_PERI "); // Period in tens of milliseconds
+
+        attributes.put("f000aa80-0451-4000-b000-000000000000", "UUID_MOV_SERV ");
+        attributes.put("f000aa81-0451-4000-b000-000000000000", "UUID_MOV_DATA ");
+        attributes.put("f000aa82-0451-4000-b000-000000000000", "UUID_MOV_CONF "); // 0: disable, bit 0: enable x, bit 1: enable y, bit 2: enable z
+        attributes.put("f000aa83-0451-4000-b000-000000000000", "UUID_MOV_PERI "); // Period in tens of milliseconds
+
+
+        attributes.put("0000ffe0-0000-1000-8000-00805f9b34fb", "UUID_KEY_SERV ");
+        attributes.put("0000ffe1-0000-1000-8000-00805f9b34fb", "UUID_KEY_DATA ");
+
     }
 
     public static String lookup(String uuid, String defaultName) {
