@@ -27,4 +27,4 @@
           android:orderInCategory="101"
           android:showAsAction="ifRoom|withText"/>
 </menu>
-<!-- From: file:/home/kanvalkalra/AndroidStudioProjects/BLESample/Application/src/main/res/menu/gatt_services.xml -->
+<!-- From: file:/home/kanvalkalra/AndroidStudioProjects/VolleyExample/BLESample/Application/src/main/res/menu/gatt_services.xml -->

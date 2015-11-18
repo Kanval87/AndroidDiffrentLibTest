@@ -38,6 +38,10 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
+import java.util.concurrent.Callable;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 /**
  * For a given BLE device, this Activity provides the user interface to connect, display data,
@@ -141,6 +145,7 @@ public class DeviceControlActivity extends Activity {
         }
     };
 
+
     private void clearUI() {
         mGattServicesList.setAdapter((SimpleExpandableListAdapter) null);
         mDataField.setText(R.string.no_data);
@@ -235,6 +240,8 @@ public class DeviceControlActivity extends Activity {
         }
     }
 
+    HashMap<String, BluetoothGattCharacteristic> bluetoothGattCharacteristicHashMap = new HashMap<String, BluetoothGattCharacteristic>();
+
     // Demonstrates how to iterate through the supported GATT Services/Characteristics.
     // In this sample, we populate the data structure that is bound to the ExpandableListView
     // on the UI.
@@ -261,8 +268,9 @@ public class DeviceControlActivity extends Activity {
 
             // Loops through available Characteristics.
             for (BluetoothGattCharacteristic gattCharacteristic : gattCharacteristics) {
-                Log.d(TAG,gattCharacteristic.getService().getUuid() + "  |  " + gattCharacteristic.getUuid());
+                Log.d(TAG, gattCharacteristic.getService().getUuid() + "  |  " + gattCharacteristic.getUuid());
                 charas.add(gattCharacteristic);
+                bluetoothGattCharacteristicHashMap.put(gattCharacteristic.getUuid().toString(), gattCharacteristic);
                 HashMap<String, String> currentCharaData = new HashMap<String, String>();
                 uuid = gattCharacteristic.getUuid().toString();
                 currentCharaData.put(LIST_NAME, SampleGattAttributes.lookup(uuid, unknownCharaString));
@@ -285,6 +293,64 @@ public class DeviceControlActivity extends Activity {
                 new int[]{android.R.id.text1, android.R.id.text2}
         );
         mGattServicesList.setAdapter(gattServiceAdapter);
+
+        startThreadForPrintingData();
+    }
+
+    private Callable<? extends Object> serviceCharacteristicCallable = new Callable<Object>() {
+        @Override
+        public Object call() throws Exception {
+            Log.d(TAG, "Callable");
+            Object o = new Object();
+            return o;
+        }
+    };
+
+    private Runnable serviceCharacteristicRunnable = new Runnable() {
+        @Override
+        public void run() {
+            Log.d(TAG, "Runnable");
+            Set<String> stringSet = SampleGattAttributes.CharacterToLookFor.keySet();
+            for (String s : stringSet) {
+                Log.d(TAG, s);
+
+
+
+                String uuid = SampleGattAttributes.CharacterToLookFor.get(s);
+                BluetoothGattCharacteristic bluetoothGattCharacteristic = bluetoothGattCharacteristicHashMap.get(uuid);
+                final int charaProp = bluetoothGattCharacteristic.getProperties();
+
+                if ((charaProp | BluetoothGattCharacteristic.PROPERTY_READ) > 0) {
+                    // If there is an active notification on a characteristic, clear
+                    // it first so it doesn't update the data field on the user interface.
+//                    mBluetoothLeService.setCharacteristicNotification(bluetoothGattCharacteristic, false);
+                    mBluetoothLeService.readCharacteristic(bluetoothGattCharacteristic);
+                }
+                if ((charaProp | BluetoothGattCharacteristic.PROPERTY_NOTIFY) > 0) {
+                    mBluetoothLeService.setCharacteristicNotification(bluetoothGattCharacteristic, true);
+                }
+                synchronized (mBluetoothLeService.getSyncObject()) {
+                    try {
+                        Log.d(TAG, "going to wait");
+                        mBluetoothLeService.getSyncObject().wait();
+                        Log.d(TAG, "Waiting Done");
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+    };
+
+    private void startThreadForPrintingData() {
+        Future objectFuture = Executors.newSingleThreadExecutor().submit(serviceCharacteristicRunnable);
+//        try {
+//            objectFuture.get();
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        } catch (ExecutionException e) {
+//            e.printStackTrace();
+//        }
     }
 
     private static IntentFilter makeGattUpdateIntentFilter() {

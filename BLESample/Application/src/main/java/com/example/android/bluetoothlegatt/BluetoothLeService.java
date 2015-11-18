@@ -96,13 +96,26 @@ public class BluetoothLeService extends Service {
             if (status == BluetoothGatt.GATT_SUCCESS) {
                 broadcastUpdate(ACTION_DATA_AVAILABLE, characteristic);
             }
+            syncNotify();
+
         }
 
         @Override
         public void onCharacteristicChanged(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic) {
             broadcastUpdate(ACTION_DATA_AVAILABLE, characteristic);
+            syncNotify();
         }
     };
+
+    private void syncNotify() {
+        synchronized (getSyncObject()) {
+            Log.d(TAG, "going to notify");
+            getSyncObject().notify();
+            Log.d(TAG, "notified");
+        }
+    }
+
+    private Object syncObject = new Object();
 
     private void broadcastUpdate(final String action) {
         final Intent intent = new Intent(action);
@@ -136,10 +149,15 @@ public class BluetoothLeService extends Service {
                 for (byte byteChar : data) {
                     stringBuilder.append(String.format("%02X ", byteChar));
                 }
+                Log.d(TAG, SampleGattAttributes.lookup(characteristic.getUuid().toString(), "unknown") + "  |  " + stringBuilder);
                 intent.putExtra(EXTRA_DATA, new String(data) + "\n" + stringBuilder.toString());
             }
         }
         sendBroadcast(intent);
+    }
+
+    public Object getSyncObject() {
+        return syncObject;
     }
 
     public class LocalBinder extends Binder {

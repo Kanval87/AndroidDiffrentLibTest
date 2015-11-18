@@ -29,4 +29,4 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="12dp"/>
-</LinearLayout><!-- From: file:/home/kanvalkalra/AndroidStudioProjects/BLESample/Application/src/main/res/layout/listitem_device.xml -->
+</LinearLayout><!-- From: file:/home/kanvalkalra/AndroidStudioProjects/VolleyExample/BLESample/Application/src/main/res/layout/listitem_device.xml -->
