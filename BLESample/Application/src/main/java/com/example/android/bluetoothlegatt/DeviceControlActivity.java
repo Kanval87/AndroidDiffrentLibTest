@@ -311,36 +311,51 @@ public class DeviceControlActivity extends Activity {
         public void run() {
             Log.d(TAG, "Runnable");
             Set<String> stringSet = SampleGattAttributes.CharacterToLookFor.keySet();
+
             for (String s : stringSet) {
                 Log.d(TAG, s);
 
 
 
                 String uuid = SampleGattAttributes.CharacterToLookFor.get(s);
+                Log.d(TAG, "getting characteristic");
                 BluetoothGattCharacteristic bluetoothGattCharacteristic = bluetoothGattCharacteristicHashMap.get(uuid);
-                final int charaProp = bluetoothGattCharacteristic.getProperties();
+                Log.d(TAG, "getting properties");
+                int charaProp = -1;
+                try {
+                    charaProp = bluetoothGattCharacteristic.getProperties();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
                 if ((charaProp | BluetoothGattCharacteristic.PROPERTY_READ) > 0) {
                     // If there is an active notification on a characteristic, clear
                     // it first so it doesn't update the data field on the user interface.
 //                    mBluetoothLeService.setCharacteristicNotification(bluetoothGattCharacteristic, false);
+                    Log.d(TAG, "Set to Reading");
                     mBluetoothLeService.readCharacteristic(bluetoothGattCharacteristic);
+                    waitForResponse();
                 }
                 if ((charaProp | BluetoothGattCharacteristic.PROPERTY_NOTIFY) > 0) {
+                    Log.d(TAG, "Set to Notify");
                     mBluetoothLeService.setCharacteristicNotification(bluetoothGattCharacteristic, true);
                 }
-                synchronized (mBluetoothLeService.getSyncObject()) {
-                    try {
-                        Log.d(TAG, "going to wait");
-                        mBluetoothLeService.getSyncObject().wait();
-                        Log.d(TAG, "Waiting Done");
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
+
             }
         }
     };
+
+    private void waitForResponse() {
+        synchronized (mBluetoothLeService.getSyncObject()) {
+            try {
+                Log.d(TAG, "going to wait");
+                mBluetoothLeService.getSyncObject().wait();
+                Log.d(TAG, "Waiting Done");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     private void startThreadForPrintingData() {
         Future objectFuture = Executors.newSingleThreadExecutor().submit(serviceCharacteristicRunnable);

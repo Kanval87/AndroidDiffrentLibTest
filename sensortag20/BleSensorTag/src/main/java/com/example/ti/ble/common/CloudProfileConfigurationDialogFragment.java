@@ -1,56 +1,54 @@
 /**************************************************************************************************
- Filename:       CloudProfileConfigurationDialogFragment.java
- Revised:        $Date: Wed Apr 22 13:01:34 2015 +0200$
- Revision:       $Revision: 599e5650a33a4a142d060c959561f9e9b0d88146$
-
- Copyright (c) 2013 - 2015 Texas Instruments Incorporated
-
- All rights reserved not granted herein.
- Limited License.
-
- Texas Instruments Incorporated grants a world-wide, royalty-free,
- non-exclusive license under copyrights and patents it now or hereafter
- owns or controls to make, have made, use, import, offer to sell and sell ("Utilize")
- this software subject to the terms herein.  With respect to the foregoing patent
- license, such license is granted  solely to the extent that any such patent is necessary
- to Utilize the software alone.  The patent license shall not apply to any combinations which
- include this software, other than combinations with devices manufactured by or for TI ('TI Devices').
- No hardware patent is licensed hereunder.
-
- Redistributions must preserve existing copyright notices and reproduce this license (including the
- above copyright notice and the disclaimer and (if applicable) source code license limitations below)
- in the documentation and/or other materials provided with the distribution
-
- Redistribution and use in binary form, without modification, are permitted provided that the following
- conditions are met:
-
+ * Filename:       CloudProfileConfigurationDialogFragment.java
+ * Revised:        $Date: Wed Apr 22 13:01:34 2015 +0200$
+ * Revision:       $Revision: 599e5650a33a4a142d060c959561f9e9b0d88146$
+ * <p/>
+ * Copyright (c) 2013 - 2015 Texas Instruments Incorporated
+ * <p/>
+ * All rights reserved not granted herein.
+ * Limited License.
+ * <p/>
+ * Texas Instruments Incorporated grants a world-wide, royalty-free,
+ * non-exclusive license under copyrights and patents it now or hereafter
+ * owns or controls to make, have made, use, import, offer to sell and sell ("Utilize")
+ * this software subject to the terms herein.  With respect to the foregoing patent
+ * license, such license is granted  solely to the extent that any such patent is necessary
+ * to Utilize the software alone.  The patent license shall not apply to any combinations which
+ * include this software, other than combinations with devices manufactured by or for TI ('TI Devices').
+ * No hardware patent is licensed hereunder.
+ * <p/>
+ * Redistributions must preserve existing copyright notices and reproduce this license (including the
+ * above copyright notice and the disclaimer and (if applicable) source code license limitations below)
+ * in the documentation and/or other materials provided with the distribution
+ * <p/>
+ * Redistribution and use in binary form, without modification, are permitted provided that the following
+ * conditions are met:
+ * <p/>
  * No reverse engineering, decompilation, or disassembly of this software is permitted with respect to any
- software provided in binary form.
+ * software provided in binary form.
  * any redistribution and use are licensed by TI for use only with TI Devices.
  * Nothing shall obligate TI to provide you with source code for the software licensed and provided to you in object code.
-
- If software source code is provided to you, modification and redistribution of the source code are permitted
- provided that the following conditions are met:
-
+ * <p/>
+ * If software source code is provided to you, modification and redistribution of the source code are permitted
+ * provided that the following conditions are met:
+ * <p/>
  * any redistribution and use of the source code, including any resulting derivative works, are licensed by
- TI for use only with TI Devices.
+ * TI for use only with TI Devices.
  * any redistribution and use of any object code compiled from the source code and any resulting derivative
- works, are licensed by TI for use only with TI Devices.
-
- Neither the name of Texas Instruments Incorporated nor the names of its suppliers may be used to endorse or
- promote products derived from this software without specific prior written permission.
-
- DISCLAIMER.
-
- THIS SOFTWARE IS PROVIDED BY TI AND TI'S LICENSORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING,
- BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
- IN NO EVENT SHALL TI AND TI'S LICENSORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
- OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- POSSIBILITY OF SUCH DAMAGE.
-
-
+ * works, are licensed by TI for use only with TI Devices.
+ * <p/>
+ * Neither the name of Texas Instruments Incorporated nor the names of its suppliers may be used to endorse or
+ * promote products derived from this software without specific prior written permission.
+ * <p/>
+ * DISCLAIMER.
+ * <p/>
+ * THIS SOFTWARE IS PROVIDED BY TI AND TI'S LICENSORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING,
+ * BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+ * IN NO EVENT SHALL TI AND TI'S LICENSORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
+ * OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
  **************************************************************************************************/
 package com.example.ti.ble.common;
 
@@ -108,9 +106,6 @@ public class CloudProfileConfigurationDialogFragment extends DialogFragment impl
     public final static Integer DEF_CLOUD_CUSTOM_CLOUD_SERVICE = 2;
 
 
-
-
-
     private String deviceId = "";
     private View v;
 
@@ -119,11 +114,13 @@ public class CloudProfileConfigurationDialogFragment extends DialogFragment impl
     public CloudProfileConfigurationDialogFragment(String devId) {
         deviceId = devId;
     }
+
     public static CloudProfileConfigurationDialogFragment newInstance(String devId) {
         CloudProfileConfigurationDialogFragment frag = new CloudProfileConfigurationDialogFragment(devId);
         Bundle args = new Bundle();
         return frag;
     }
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder cloudDialog = new AlertDialog.Builder(getActivity())
@@ -132,34 +129,32 @@ public class CloudProfileConfigurationDialogFragment extends DialogFragment impl
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                        Integer sel = ((Spinner)v.findViewById(R.id.cloud_spinner)).getSelectedItemPosition();
-                        CloudProfileConfigurationDialogFragment.setCloudPref(PREF_CLOUD_SERVICE,sel.toString(),getActivity());
-                        CloudProfileConfigurationDialogFragment.setCloudPref(PREF_CLOUD_USERNAME,((EditText)v.findViewById(R.id.cloud_username)).getText().toString(),getActivity());
-                        CloudProfileConfigurationDialogFragment.setCloudPref(PREF_CLOUD_PASSWORD,((EditText)v.findViewById(R.id.cloud_password)).getText().toString(),getActivity());
-                        CloudProfileConfigurationDialogFragment.setCloudPref(PREF_CLOUD_DEVICE_ID,((EditText)v.findViewById(R.id.cloud_deviceid)).getText().toString(),getActivity());
-                        CloudProfileConfigurationDialogFragment.setCloudPref(PREF_CLOUD_BROKER_ADDR,((EditText)v.findViewById(R.id.cloud_broker_address)).getText().toString(),getActivity());
-                        CloudProfileConfigurationDialogFragment.setCloudPref(PREF_CLOUD_BROKER_PORT,((EditText)v.findViewById(R.id.cloud_broker_port)).getText().toString(),getActivity());
-                        CloudProfileConfigurationDialogFragment.setCloudPref(PREF_CLOUD_PUBLISH_TOPIC,((EditText)v.findViewById(R.id.cloud_publish_topic)).getText().toString(),getActivity());
-                        boolean cleanSession = ((CheckBox)v.findViewById(R.id.cloud_clean_session_checkbox)).isChecked();
+                        Integer sel = ((Spinner) v.findViewById(R.id.cloud_spinner)).getSelectedItemPosition();
+                        CloudProfileConfigurationDialogFragment.setCloudPref(PREF_CLOUD_SERVICE, sel.toString(), getActivity());
+                        CloudProfileConfigurationDialogFragment.setCloudPref(PREF_CLOUD_USERNAME, ((EditText) v.findViewById(R.id.cloud_username)).getText().toString(), getActivity());
+                        CloudProfileConfigurationDialogFragment.setCloudPref(PREF_CLOUD_PASSWORD, ((EditText) v.findViewById(R.id.cloud_password)).getText().toString(), getActivity());
+                        CloudProfileConfigurationDialogFragment.setCloudPref(PREF_CLOUD_DEVICE_ID, ((EditText) v.findViewById(R.id.cloud_deviceid)).getText().toString(), getActivity());
+                        CloudProfileConfigurationDialogFragment.setCloudPref(PREF_CLOUD_BROKER_ADDR, ((EditText) v.findViewById(R.id.cloud_broker_address)).getText().toString(), getActivity());
+                        CloudProfileConfigurationDialogFragment.setCloudPref(PREF_CLOUD_BROKER_PORT, ((EditText) v.findViewById(R.id.cloud_broker_port)).getText().toString(), getActivity());
+                        CloudProfileConfigurationDialogFragment.setCloudPref(PREF_CLOUD_PUBLISH_TOPIC, ((EditText) v.findViewById(R.id.cloud_publish_topic)).getText().toString(), getActivity());
+                        boolean cleanSession = ((CheckBox) v.findViewById(R.id.cloud_clean_session_checkbox)).isChecked();
                         String cleanSessionString;
                         if (cleanSession) {
                             cleanSessionString = "true";
-                        }
-                        else cleanSessionString = "false";
-                        CloudProfileConfigurationDialogFragment.setCloudPref(PREF_CLOUD_CLEAN_SESSION,cleanSessionString,getActivity());
+                        } else cleanSessionString = "false";
+                        CloudProfileConfigurationDialogFragment.setCloudPref(PREF_CLOUD_CLEAN_SESSION, cleanSessionString, getActivity());
 
-                        boolean useSSL = ((CheckBox)v.findViewById(R.id.cloud_use_ssl_checkbox)).isChecked();
+                        boolean useSSL = ((CheckBox) v.findViewById(R.id.cloud_use_ssl_checkbox)).isChecked();
                         String useSSLString;
                         if (useSSL) {
                             useSSLString = "true";
-                        }
-                        else useSSLString = "false";
-                        CloudProfileConfigurationDialogFragment.setCloudPref(PREF_CLOUD_USE_SSL,useSSLString,getActivity());
+                        } else useSSLString = "false";
+                        CloudProfileConfigurationDialogFragment.setCloudPref(PREF_CLOUD_USE_SSL, useSSLString, getActivity());
 
                         prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-                        Map <String, ?> keys = prefs.getAll();
-                        for (Map.Entry<String,?> entry : keys.entrySet()){
-                            Log.d("CloudProfileConfigurationDialogFragment",entry.getKey() + ":" + entry.getValue().toString());
+                        Map<String, ?> keys = prefs.getAll();
+                        for (Map.Entry<String, ?> entry : keys.entrySet()) {
+                            Log.d("CloudProfileConfigurationDialogFragment", entry.getKey() + ":" + entry.getValue().toString());
                         }
 
                         final Intent intent = new Intent(ACTION_CLOUD_CONFIG_WAS_UPDATED);
@@ -169,7 +164,7 @@ public class CloudProfileConfigurationDialogFragment extends DialogFragment impl
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getActivity(),"No values changed",Toast.LENGTH_LONG);
+                        Toast.makeText(getActivity(), "No values changed", Toast.LENGTH_LONG);
                     }
                 });
 
@@ -181,18 +176,16 @@ public class CloudProfileConfigurationDialogFragment extends DialogFragment impl
         Spinner spinner = (Spinner) v.findViewById(R.id.cloud_spinner);
 
 
-
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.getActivity(), R.array.cloud_config_dialog_cloud_services_array,android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.getActivity(), R.array.cloud_config_dialog_cloud_services_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
         spinner.setOnItemSelectedListener(this);
         try {
-            Integer sel = Integer.parseInt(CloudProfileConfigurationDialogFragment.retrieveCloudPref(CloudProfileConfigurationDialogFragment.PREF_CLOUD_SERVICE,getActivity()),10);
+            Integer sel = Integer.parseInt(CloudProfileConfigurationDialogFragment.retrieveCloudPref(CloudProfileConfigurationDialogFragment.PREF_CLOUD_SERVICE, getActivity()), 10);
             spinner.setSelection(sel);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
 
         }
 /*
@@ -207,52 +200,52 @@ public class CloudProfileConfigurationDialogFragment extends DialogFragment impl
 
     }
 
-/*
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
+    /*
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
 
 
-    }
-    */
-    public void enDisUsername (boolean enable,String username) {
-        TextView t = (TextView)v.findViewById(R.id.cloud_username_label);
-        EditText e = (EditText)v.findViewById(R.id.cloud_username);
+        }
+        */
+    public void enDisUsername(boolean enable, String username) {
+        TextView t = (TextView) v.findViewById(R.id.cloud_username_label);
+        EditText e = (EditText) v.findViewById(R.id.cloud_username);
         e.setEnabled(enable);
         e.setText(username);
         if (enable) {
             t.setAlpha(1.0f);
             e.setAlpha(1.0f);
-        }
-        else {
+        } else {
             t.setAlpha(0.4f);
             e.setAlpha(0.4f);
         }
 
     }
-    public void enDisPassword (boolean enable,String password) {
-        TextView t = (TextView)v.findViewById(R.id.cloud_password_label);
-        EditText e = (EditText)v.findViewById(R.id.cloud_password);
+
+    public void enDisPassword(boolean enable, String password) {
+        TextView t = (TextView) v.findViewById(R.id.cloud_password_label);
+        EditText e = (EditText) v.findViewById(R.id.cloud_password);
         e.setEnabled(enable);
         e.setText(password);
         if (enable) {
             t.setAlpha(1.0f);
             e.setAlpha(1.0f);
-        }
-        else {
+        } else {
             t.setAlpha(0.4f);
             e.setAlpha(0.4f);
         }
 
     }
-    public void setDeviceId (String deviceId) {
-        EditText e = (EditText)v.findViewById(R.id.cloud_deviceid);
+
+    public void setDeviceId(String deviceId) {
+        EditText e = (EditText) v.findViewById(R.id.cloud_deviceid);
         e.setText(deviceId);
     }
 
-    public void enDisBrokerAddressPort(boolean en,String brokerAddress, String brokerPort) {
-        TextView t = (TextView)v.findViewById(R.id.cloud_broker_address_label);
-        EditText e = (EditText)v.findViewById(R.id.cloud_broker_address);
-        TextView tP = (TextView)v.findViewById(R.id.cloud_broker_port_label);
-        EditText eP = (EditText)v.findViewById(R.id.cloud_broker_port);
+    public void enDisBrokerAddressPort(boolean en, String brokerAddress, String brokerPort) {
+        TextView t = (TextView) v.findViewById(R.id.cloud_broker_address_label);
+        EditText e = (EditText) v.findViewById(R.id.cloud_broker_address);
+        TextView tP = (TextView) v.findViewById(R.id.cloud_broker_port_label);
+        EditText eP = (EditText) v.findViewById(R.id.cloud_broker_port);
 
         e.setEnabled(en);
         eP.setEnabled(en);
@@ -263,17 +256,17 @@ public class CloudProfileConfigurationDialogFragment extends DialogFragment impl
             e.setAlpha(1.0f);
             tP.setAlpha(1.0f);
             eP.setAlpha(1.0f);
-        }
-        else {
+        } else {
             t.setAlpha(0.4f);
             tP.setAlpha(0.4f);
             e.setAlpha(0.4f);
             eP.setAlpha(0.4f);
         }
     }
+
     public void enDisTopic(boolean en, String topic) {
-        TextView t = (TextView)v.findViewById(R.id.cloud_publish_topic_label);
-        EditText e = (EditText)v.findViewById(R.id.cloud_publish_topic);
+        TextView t = (TextView) v.findViewById(R.id.cloud_publish_topic_label);
+        EditText e = (EditText) v.findViewById(R.id.cloud_publish_topic);
 
         e.setEnabled(en);
         e.setText(topic);
@@ -281,21 +274,20 @@ public class CloudProfileConfigurationDialogFragment extends DialogFragment impl
         if (en) {
             t.setAlpha(1.0f);
             e.setAlpha(1.0f);
-        }
-        else {
+        } else {
             t.setAlpha(0.4f);
             e.setAlpha(0.4f);
         }
     }
 
-    public void enDisCleanSession(boolean en,boolean checked) {
-        CheckBox c = (CheckBox)v.findViewById(R.id.cloud_clean_session_checkbox);
+    public void enDisCleanSession(boolean en, boolean checked) {
+        CheckBox c = (CheckBox) v.findViewById(R.id.cloud_clean_session_checkbox);
         c.setEnabled(en);
         c.setChecked(checked);
     }
 
     public void enDisUseSSL(boolean en, boolean checked) {
-        CheckBox c = (CheckBox)v.findViewById(R.id.cloud_use_ssl_checkbox);
+        CheckBox c = (CheckBox) v.findViewById(R.id.cloud_use_ssl_checkbox);
         c.setEnabled(en);
         c.setChecked(checked);
     }
@@ -306,87 +298,81 @@ public class CloudProfileConfigurationDialogFragment extends DialogFragment impl
         switch (position) {
             case 0:
                 //IBM IoT Quick Start
-                enDisUsername(false,DEF_CLOUD_IBMQUICKSTART_USERNAME);
-                enDisPassword(false,DEF_CLOUD_IBMQUICKSTART_PASSWORD);
+                enDisUsername(false, DEF_CLOUD_IBMQUICKSTART_USERNAME);
+                enDisPassword(false, DEF_CLOUD_IBMQUICKSTART_PASSWORD);
                 setDeviceId(DEF_CLOUD_IBMQUICKSTART_DEVICEID_PREFIX + deviceId);
-                enDisBrokerAddressPort(false,CloudProfileConfigurationDialogFragment.DEF_CLOUD_IBMQUICKSTART_BROKER_ADDR,CloudProfileConfigurationDialogFragment.DEF_CLOUD_IBMQUICKSTART_BROKER_PORT);
-                enDisTopic(false,CloudProfileConfigurationDialogFragment.DEF_CLOUD_IBMQUICKSTART_PUBLISH_TOPIC);
-                enDisCleanSession(false,CloudProfileConfigurationDialogFragment.DEF_CLOUD_IBMQUICKSTART_CLEAN_SESSION);
-                enDisUseSSL(false,CloudProfileConfigurationDialogFragment.DEF_CLOUD_IBMQUICKSTART_USE_SSL);
+                enDisBrokerAddressPort(false, CloudProfileConfigurationDialogFragment.DEF_CLOUD_IBMQUICKSTART_BROKER_ADDR, CloudProfileConfigurationDialogFragment.DEF_CLOUD_IBMQUICKSTART_BROKER_PORT);
+                enDisTopic(false, CloudProfileConfigurationDialogFragment.DEF_CLOUD_IBMQUICKSTART_PUBLISH_TOPIC);
+                enDisCleanSession(false, CloudProfileConfigurationDialogFragment.DEF_CLOUD_IBMQUICKSTART_CLEAN_SESSION);
+                enDisUseSSL(false, CloudProfileConfigurationDialogFragment.DEF_CLOUD_IBMQUICKSTART_USE_SSL);
                 break;
             case 1:
-                enDisUsername(true,CloudProfileConfigurationDialogFragment.retrieveCloudPref(CloudProfileConfigurationDialogFragment.PREF_CLOUD_USERNAME,getActivity()));
-                enDisPassword(true,CloudProfileConfigurationDialogFragment.retrieveCloudPref(CloudProfileConfigurationDialogFragment.PREF_CLOUD_PASSWORD,getActivity()));
-                setDeviceId(CloudProfileConfigurationDialogFragment.retrieveCloudPref(CloudProfileConfigurationDialogFragment.PREF_CLOUD_DEVICE_ID,getActivity()));
-                enDisBrokerAddressPort(true,CloudProfileConfigurationDialogFragment.retrieveCloudPref(CloudProfileConfigurationDialogFragment.PREF_CLOUD_BROKER_ADDR,getActivity()),
-                                            CloudProfileConfigurationDialogFragment.retrieveCloudPref(CloudProfileConfigurationDialogFragment.PREF_CLOUD_BROKER_PORT,getActivity()));
-                enDisTopic(true,CloudProfileConfigurationDialogFragment.retrieveCloudPref(CloudProfileConfigurationDialogFragment.PREF_CLOUD_PUBLISH_TOPIC,getActivity()));
+                enDisUsername(true, CloudProfileConfigurationDialogFragment.retrieveCloudPref(CloudProfileConfigurationDialogFragment.PREF_CLOUD_USERNAME, getActivity()));
+                enDisPassword(true, CloudProfileConfigurationDialogFragment.retrieveCloudPref(CloudProfileConfigurationDialogFragment.PREF_CLOUD_PASSWORD, getActivity()));
+                setDeviceId(CloudProfileConfigurationDialogFragment.retrieveCloudPref(CloudProfileConfigurationDialogFragment.PREF_CLOUD_DEVICE_ID, getActivity()));
+                enDisBrokerAddressPort(true, CloudProfileConfigurationDialogFragment.retrieveCloudPref(CloudProfileConfigurationDialogFragment.PREF_CLOUD_BROKER_ADDR, getActivity()),
+                        CloudProfileConfigurationDialogFragment.retrieveCloudPref(CloudProfileConfigurationDialogFragment.PREF_CLOUD_BROKER_PORT, getActivity()));
+                enDisTopic(true, CloudProfileConfigurationDialogFragment.retrieveCloudPref(CloudProfileConfigurationDialogFragment.PREF_CLOUD_PUBLISH_TOPIC, getActivity()));
                 boolean cleanSession;
                 try {
-                    cleanSession = Boolean.parseBoolean(CloudProfileConfigurationDialogFragment.retrieveCloudPref(CloudProfileConfigurationDialogFragment.PREF_CLOUD_CLEAN_SESSION,getActivity()));
-                }
-                catch (Exception e) {
+                    cleanSession = Boolean.parseBoolean(CloudProfileConfigurationDialogFragment.retrieveCloudPref(CloudProfileConfigurationDialogFragment.PREF_CLOUD_CLEAN_SESSION, getActivity()));
+                } catch (Exception e) {
                     e.printStackTrace();
                     cleanSession = false;
                 }
-                enDisCleanSession(true,cleanSession);
+                enDisCleanSession(true, cleanSession);
                 boolean useSSL;
                 try {
-                   useSSL = Boolean.parseBoolean(CloudProfileConfigurationDialogFragment.retrieveCloudPref(CloudProfileConfigurationDialogFragment.PREF_CLOUD_USE_SSL,getActivity()));
-                }
-                catch (Exception e) {
+                    useSSL = Boolean.parseBoolean(CloudProfileConfigurationDialogFragment.retrieveCloudPref(CloudProfileConfigurationDialogFragment.PREF_CLOUD_USE_SSL, getActivity()));
+                } catch (Exception e) {
                     e.printStackTrace();
                     useSSL = false;
                 }
-                enDisUseSSL(true,useSSL);
+                enDisUseSSL(true, useSSL);
                 break;
             case 2:
-                enDisUsername(true,CloudProfileConfigurationDialogFragment.retrieveCloudPref(CloudProfileConfigurationDialogFragment.PREF_CLOUD_USERNAME,getActivity()));
-                enDisPassword(true,CloudProfileConfigurationDialogFragment.retrieveCloudPref(CloudProfileConfigurationDialogFragment.PREF_CLOUD_PASSWORD,getActivity()));
-                setDeviceId(CloudProfileConfigurationDialogFragment.retrieveCloudPref(CloudProfileConfigurationDialogFragment.PREF_CLOUD_DEVICE_ID,getActivity()));
-                enDisBrokerAddressPort(true,CloudProfileConfigurationDialogFragment.retrieveCloudPref(CloudProfileConfigurationDialogFragment.PREF_CLOUD_BROKER_ADDR,getActivity()),
-                                            CloudProfileConfigurationDialogFragment.retrieveCloudPref(CloudProfileConfigurationDialogFragment.PREF_CLOUD_BROKER_PORT,getActivity()));
-                enDisTopic(true,CloudProfileConfigurationDialogFragment.retrieveCloudPref(CloudProfileConfigurationDialogFragment.PREF_CLOUD_PUBLISH_TOPIC,getActivity()));
+                enDisUsername(true, CloudProfileConfigurationDialogFragment.retrieveCloudPref(CloudProfileConfigurationDialogFragment.PREF_CLOUD_USERNAME, getActivity()));
+                enDisPassword(true, CloudProfileConfigurationDialogFragment.retrieveCloudPref(CloudProfileConfigurationDialogFragment.PREF_CLOUD_PASSWORD, getActivity()));
+                setDeviceId(CloudProfileConfigurationDialogFragment.retrieveCloudPref(CloudProfileConfigurationDialogFragment.PREF_CLOUD_DEVICE_ID, getActivity()));
+                enDisBrokerAddressPort(true, CloudProfileConfigurationDialogFragment.retrieveCloudPref(CloudProfileConfigurationDialogFragment.PREF_CLOUD_BROKER_ADDR, getActivity()),
+                        CloudProfileConfigurationDialogFragment.retrieveCloudPref(CloudProfileConfigurationDialogFragment.PREF_CLOUD_BROKER_PORT, getActivity()));
+                enDisTopic(true, CloudProfileConfigurationDialogFragment.retrieveCloudPref(CloudProfileConfigurationDialogFragment.PREF_CLOUD_PUBLISH_TOPIC, getActivity()));
                 try {
-                    cleanSession = Boolean.parseBoolean(CloudProfileConfigurationDialogFragment.retrieveCloudPref(CloudProfileConfigurationDialogFragment.PREF_CLOUD_CLEAN_SESSION,getActivity()));
-                }
-                catch (Exception e) {
+                    cleanSession = Boolean.parseBoolean(CloudProfileConfigurationDialogFragment.retrieveCloudPref(CloudProfileConfigurationDialogFragment.PREF_CLOUD_CLEAN_SESSION, getActivity()));
+                } catch (Exception e) {
                     e.printStackTrace();
                     cleanSession = false;
                 }
-                enDisCleanSession(true,cleanSession);
+                enDisCleanSession(true, cleanSession);
                 try {
-                    useSSL = Boolean.parseBoolean(CloudProfileConfigurationDialogFragment.retrieveCloudPref(CloudProfileConfigurationDialogFragment.PREF_CLOUD_USE_SSL,getActivity()));
-                }
-                catch (Exception e) {
+                    useSSL = Boolean.parseBoolean(CloudProfileConfigurationDialogFragment.retrieveCloudPref(CloudProfileConfigurationDialogFragment.PREF_CLOUD_USE_SSL, getActivity()));
+                } catch (Exception e) {
                     e.printStackTrace();
                     useSSL = false;
                 }
-                enDisUseSSL(true,useSSL);
+                enDisUseSSL(true, useSSL);
                 break;
             default:
-                enDisUsername(true,CloudProfileConfigurationDialogFragment.retrieveCloudPref(CloudProfileConfigurationDialogFragment.PREF_CLOUD_USERNAME,getActivity()));
-                enDisPassword(true,CloudProfileConfigurationDialogFragment.retrieveCloudPref(CloudProfileConfigurationDialogFragment.PREF_CLOUD_PASSWORD,getActivity()));
-                setDeviceId(CloudProfileConfigurationDialogFragment.retrieveCloudPref(CloudProfileConfigurationDialogFragment.PREF_CLOUD_DEVICE_ID,getActivity()));
-                enDisBrokerAddressPort(true,CloudProfileConfigurationDialogFragment.retrieveCloudPref(CloudProfileConfigurationDialogFragment.PREF_CLOUD_BROKER_ADDR,getActivity()),
-                                            CloudProfileConfigurationDialogFragment.retrieveCloudPref(CloudProfileConfigurationDialogFragment.PREF_CLOUD_BROKER_PORT,getActivity()));
-                enDisTopic(true,CloudProfileConfigurationDialogFragment.retrieveCloudPref(CloudProfileConfigurationDialogFragment.PREF_CLOUD_PUBLISH_TOPIC,getActivity()));
+                enDisUsername(true, CloudProfileConfigurationDialogFragment.retrieveCloudPref(CloudProfileConfigurationDialogFragment.PREF_CLOUD_USERNAME, getActivity()));
+                enDisPassword(true, CloudProfileConfigurationDialogFragment.retrieveCloudPref(CloudProfileConfigurationDialogFragment.PREF_CLOUD_PASSWORD, getActivity()));
+                setDeviceId(CloudProfileConfigurationDialogFragment.retrieveCloudPref(CloudProfileConfigurationDialogFragment.PREF_CLOUD_DEVICE_ID, getActivity()));
+                enDisBrokerAddressPort(true, CloudProfileConfigurationDialogFragment.retrieveCloudPref(CloudProfileConfigurationDialogFragment.PREF_CLOUD_BROKER_ADDR, getActivity()),
+                        CloudProfileConfigurationDialogFragment.retrieveCloudPref(CloudProfileConfigurationDialogFragment.PREF_CLOUD_BROKER_PORT, getActivity()));
+                enDisTopic(true, CloudProfileConfigurationDialogFragment.retrieveCloudPref(CloudProfileConfigurationDialogFragment.PREF_CLOUD_PUBLISH_TOPIC, getActivity()));
                 try {
-                    cleanSession = Boolean.parseBoolean(CloudProfileConfigurationDialogFragment.retrieveCloudPref(CloudProfileConfigurationDialogFragment.PREF_CLOUD_CLEAN_SESSION,getActivity()));
-                }
-                catch (Exception e) {
+                    cleanSession = Boolean.parseBoolean(CloudProfileConfigurationDialogFragment.retrieveCloudPref(CloudProfileConfigurationDialogFragment.PREF_CLOUD_CLEAN_SESSION, getActivity()));
+                } catch (Exception e) {
                     e.printStackTrace();
                     cleanSession = false;
                 }
-                enDisCleanSession(true,cleanSession);
+                enDisCleanSession(true, cleanSession);
                 try {
-                    useSSL = Boolean.parseBoolean(CloudProfileConfigurationDialogFragment.retrieveCloudPref(CloudProfileConfigurationDialogFragment.PREF_CLOUD_USE_SSL,getActivity()));
-                }
-                catch (Exception e) {
+                    useSSL = Boolean.parseBoolean(CloudProfileConfigurationDialogFragment.retrieveCloudPref(CloudProfileConfigurationDialogFragment.PREF_CLOUD_USE_SSL, getActivity()));
+                } catch (Exception e) {
                     e.printStackTrace();
                     useSSL = false;
                 }
-                enDisUseSSL(true,useSSL);
+                enDisUseSSL(true, useSSL);
                 break;
         }
 
@@ -394,18 +380,19 @@ public class CloudProfileConfigurationDialogFragment extends DialogFragment impl
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-        Log.d("CloudProfileConfigurationDialogFragment","onNothingSelected" + parent);
+        Log.d("CloudProfileConfigurationDialogFragment", "onNothingSelected" + parent);
     }
 
-    public static String retrieveCloudPref(String prefName,Context con) {
-            String preferenceKeyString = "pref_cloud_config_"
-                    + prefName;
+    public static String retrieveCloudPref(String prefName, Context con) {
+        String preferenceKeyString = "pref_cloud_config_"
+                + prefName;
 
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(con);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(con);
 
-            String defaultValue = "NS";
-            return prefs.getString(preferenceKeyString, defaultValue);
+        String defaultValue = "NS";
+        return prefs.getString(preferenceKeyString, defaultValue);
     }
+
     public static boolean setCloudPref(String prefName, String prefValue, Context con) {
         String preferenceKeyString = "pref_cloud_config_"
                 + prefName;

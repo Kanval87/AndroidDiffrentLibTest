@@ -139,4 +139,4 @@
         android:onClick="onStart"
         android:text="@string/start_prog" />
 
-</LinearLayout><!-- From: file:/home/kanvalkalra/AndroidStudioProjects/BLEGitProject/sensortag-20-android/sensortag20/BleSensorTag/src/main/res/layout/activity_fwupdate.xml -->
+</LinearLayout><!-- From: file:/home/kanvalkalra/AndroidStudioProjects/VolleyExample/sensortag20/BleSensorTag/src/main/res/layout/activity_fwupdate.xml -->
