@@ -294,10 +294,10 @@ public class BluetoothLeService extends Service {
      * @param characteristic Characteristic to act on.
      * @param enabled        If true, enable notification.  False otherwise.
      */
-    public void setCharacteristicNotification(BluetoothGattCharacteristic characteristic, boolean enabled) {
+    public int setCharacteristicNotification(BluetoothGattCharacteristic characteristic, boolean enabled) {
         if (mBluetoothAdapter == null || mBluetoothGatt == null) {
             Log.w(TAG, "BluetoothAdapter not initialized");
-            return;
+            return 0;
         }
         mBluetoothGatt.setCharacteristicNotification(characteristic, enabled);
 
@@ -307,6 +307,33 @@ public class BluetoothLeService extends Service {
             descriptor.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
             mBluetoothGatt.writeDescriptor(descriptor);
         }
+        return 0;
+    }
+
+    public int writeCharacteristic(BluetoothGattCharacteristic characteristic, byte b) {
+
+
+//        byte[] val = new byte[1];
+//        val[0] = b;
+//        characteristic.setValue(val);
+//
+//        bleRequest req = new bleRequest();
+//        req.status = bleRequestStatus.not_queued;
+//        req.characteristic = characteristic;
+//        req.operation = bleRequestOperation.wrBlocking;
+//        addRequestToQueue(req);
+//        boolean finished = false;
+//        while (!finished) {
+//            bleRequestStatus stat = pollForStatusofRequest(req);
+//            if (stat == bleRequestStatus.done) {
+//                finished = true;
+//                return 0;
+//            } else if (stat == bleRequestStatus.timeout) {
+//                finished = true;
+//                return -3;
+//            }
+//        }
+        return -2;
     }
 
     /**
