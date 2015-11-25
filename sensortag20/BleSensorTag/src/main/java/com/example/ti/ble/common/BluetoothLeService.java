@@ -184,14 +184,12 @@ public class BluetoothLeService extends Service {
         @Override
         public void onServicesDiscovered(BluetoothGatt gatt, int status) {
             BluetoothDevice device = gatt.getDevice();
-            broadcastUpdate(ACTION_GATT_SERVICES_DISCOVERED, device.getAddress(),
-                    status);
+            broadcastUpdate(ACTION_GATT_SERVICES_DISCOVERED, device.getAddress(), status);
         }
 
         @Override
         public void onCharacteristicChanged(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic) {
-            broadcastUpdate(ACTION_DATA_NOTIFY, characteristic,
-                    BluetoothGatt.GATT_SUCCESS);
+            broadcastUpdate(ACTION_DATA_NOTIFY, characteristic, BluetoothGatt.GATT_SUCCESS);
         }
 
         @Override
@@ -430,8 +428,7 @@ public class BluetoothLeService extends Service {
         return -2;
     }
 
-    public int writeCharacteristic(
-            BluetoothGattCharacteristic characteristic, byte[] b) {
+    public int writeCharacteristic(BluetoothGattCharacteristic characteristic, byte[] b) {
         characteristic.setValue(b);
         bleRequest req = new bleRequest();
         req.status = bleRequestStatus.not_queued;
@@ -905,20 +902,18 @@ public class BluetoothLeService extends Service {
 
         if (mBluetoothGatt.setCharacteristicNotification(request.characteristic, request.notifyenable)) {
 
-            BluetoothGattDescriptor clientConfig = request.characteristic
-                    .getDescriptor(GattInfo.CLIENT_CHARACTERISTIC_CONFIG);
+            BluetoothGattDescriptor clientConfig = request.characteristic.getDescriptor(GattInfo.CLIENT_CHARACTERISTIC_CONFIG);
+
             if (clientConfig != null) {
 
                 if (request.notifyenable) {
                     // Log.i(TAG, "Enable notification: " +
                     // characteristic.getUuid().toString());
-                    clientConfig
-                            .setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
+                    clientConfig.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
                 } else {
                     // Log.i(TAG, "Disable notification: " +
                     // characteristic.getUuid().toString());
-                    clientConfig
-                            .setValue(BluetoothGattDescriptor.DISABLE_NOTIFICATION_VALUE);
+                    clientConfig.setValue(BluetoothGattDescriptor.DISABLE_NOTIFICATION_VALUE);
                 }
                 mBluetoothGatt.writeDescriptor(clientConfig);
                 // Log.i(TAG, "writeDescriptor: " +

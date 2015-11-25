@@ -109,7 +109,7 @@ public class DeviceControlActivity extends Activity {
                 clearUI();
             } else if (BluetoothLeService.ACTION_GATT_SERVICES_DISCOVERED.equals(action)) {
                 // Show all the supported services and characteristics on the user interface.
-                displayGattServices(mBluetoothLeService.getSupportedGattServices());
+                displayGattServices(intent);
             } else if (BluetoothLeService.ACTION_DATA_AVAILABLE.equals(action)) {
                 displayData(intent.getStringExtra(BluetoothLeService.EXTRA_DATA));
             }
@@ -245,7 +245,9 @@ public class DeviceControlActivity extends Activity {
     // Demonstrates how to iterate through the supported GATT Services/Characteristics.
     // In this sample, we populate the data structure that is bound to the ExpandableListView
     // on the UI.
-    private void displayGattServices(List<BluetoothGattService> gattServices) {
+
+    private void displayGattServices(Intent intent) {
+        List<BluetoothGattService> gattServices = mBluetoothLeService.getSupportedGattServices();
         if (gattServices == null) return;
         String uuid = null;
         String unknownServiceString = getResources().getString(R.string.unknown_service);
@@ -314,7 +316,6 @@ public class DeviceControlActivity extends Activity {
 
             for (String s : stringSet) {
                 Log.d(TAG, s);
-
 
 
                 String uuid = SampleGattAttributes.CharacterToLookFor.get(s);
