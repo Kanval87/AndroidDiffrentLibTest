@@ -25,6 +25,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
@@ -34,6 +35,9 @@ import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.SimpleExpandableListAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.android.bluetoothlegatt.BLEServices.GenericBLEServices;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -144,6 +148,7 @@ public class DeviceControlActivity extends Activity {
             return false;
         }
     };
+    private Context context = DeviceControlActivity.this;
 
 
     private void clearUI() {
@@ -242,12 +247,15 @@ public class DeviceControlActivity extends Activity {
 
     HashMap<String, BluetoothGattCharacteristic> bluetoothGattCharacteristicHashMap = new HashMap<String, BluetoothGattCharacteristic>();
 
+    private ArrayList<BluetoothGattCharacteristic> charList;
+    private List<GenericBLEServices> mProfiles;
+
     // Demonstrates how to iterate through the supported GATT Services/Characteristics.
     // In this sample, we populate the data structure that is bound to the ExpandableListView
     // on the UI.
 
     private void displayGattServices(Intent intent) {
-        List<BluetoothGattService> gattServices = mBluetoothLeService.getSupportedGattServices();
+        final List<BluetoothGattService> gattServices = mBluetoothLeService.getSupportedGattServices();
         if (gattServices == null) return;
         String uuid = null;
         String unknownServiceString = getResources().getString(R.string.unknown_service);
@@ -255,6 +263,46 @@ public class DeviceControlActivity extends Activity {
         ArrayList<HashMap<String, String>> gattServiceData = new ArrayList<HashMap<String, String>>();
         ArrayList<ArrayList<HashMap<String, String>>> gattCharacteristicData = new ArrayList<ArrayList<HashMap<String, String>>>();
         mGattCharacteristics = new ArrayList<ArrayList<BluetoothGattCharacteristic>>();
+
+        if (gattServices.size() > 0) {
+            for (int ii = 0; ii < gattServices.size(); ii++) {
+                BluetoothGattService s = gattServices.get(ii);
+                List<BluetoothGattCharacteristic> c = s.getCharacteristics();
+                if (c.size() > 0) {
+                    for (int jj = 0; jj < c.size(); jj++) {
+                        charList.add(c.get(jj));
+                    }
+                }
+            }
+        }
+
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                int nrNotificationsOn = 0;
+                int maxNotifications;
+                int servicesDiscovered = 0;
+                int totalCharacteristics = 0;
+                //serviceList = mBtLeService.getSupportedGattServices();
+                for (BluetoothGattService s : gattServices) {
+                    List<BluetoothGattCharacteristic> chars = s.getCharacteristics();
+                    totalCharacteristics += chars.size();
+                }
+
+                final int final_totalCharacteristics = totalCharacteristics;
+
+                if (Build.VERSION.SDK_INT > 18) maxNotifications = 7;
+                else {
+                    maxNotifications = 4;
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(context, "Android version 4.3 detected, max 4 notifications enabled", Toast.LENGTH_LONG).show();
+                        }
+                    });
+                }
+            }
+        };
 
         // Loops through available GATT Services.
         for (BluetoothGattService gattService : gattServices) {
