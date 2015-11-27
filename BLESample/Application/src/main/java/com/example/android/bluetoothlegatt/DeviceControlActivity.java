@@ -17,6 +17,7 @@
 package com.example.android.bluetoothlegatt;
 
 import android.app.Activity;
+import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothGattCharacteristic;
 import android.bluetooth.BluetoothGattService;
 import android.content.BroadcastReceiver;
@@ -38,6 +39,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.bluetoothlegatt.BLEServices.GenericBLEServices;
+import com.example.android.bluetoothlegatt.BLEServices.SensorTagHumidityProfile;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -58,13 +60,17 @@ public class DeviceControlActivity extends Activity {
 
     public static final String EXTRAS_DEVICE_NAME = "DEVICE_NAME";
     public static final String EXTRAS_DEVICE_ADDRESS = "DEVICE_ADDRESS";
+    public static final String EXTRAS_DEVICE = "DEVICE";
 
     private TextView mConnectionState;
     private TextView mDataField;
     private String mDeviceName;
-    private String mDeviceAddress;
+
     private ExpandableListView mGattServicesList;
+
     private BluetoothLeService mBluetoothLeService;
+    private BluetoothDevice bluetoothDevice;
+
     private ArrayList<ArrayList<BluetoothGattCharacteristic>> mGattCharacteristics = new ArrayList<ArrayList<BluetoothGattCharacteristic>>();
     private boolean mConnected = false;
     private BluetoothGattCharacteristic mNotifyCharacteristic;
@@ -83,7 +89,7 @@ public class DeviceControlActivity extends Activity {
                 finish();
             }
             // Automatically connects to the device upon successful start-up initialization.
-            mBluetoothLeService.connect(mDeviceAddress);
+            mBluetoothLeService.connect(bluetoothDevice.getAddress());
         }
 
         @Override
@@ -163,10 +169,10 @@ public class DeviceControlActivity extends Activity {
 
         final Intent intent = getIntent();
         mDeviceName = intent.getStringExtra(EXTRAS_DEVICE_NAME);
-        mDeviceAddress = intent.getStringExtra(EXTRAS_DEVICE_ADDRESS);
+        bluetoothDevice = intent.getParcelableExtra(EXTRAS_DEVICE);
 
         // Sets up UI references.
-        ((TextView) findViewById(R.id.device_address)).setText(mDeviceAddress);
+        ((TextView) findViewById(R.id.device_address)).setText(bluetoothDevice.getAddress());
         mGattServicesList = (ExpandableListView) findViewById(R.id.gatt_services_list);
         mGattServicesList.setOnChildClickListener(servicesListClickListner);
         mConnectionState = (TextView) findViewById(R.id.connection_state);
@@ -183,7 +189,7 @@ public class DeviceControlActivity extends Activity {
         super.onResume();
         registerReceiver(mGattUpdateReceiver, makeGattUpdateIntentFilter());
         if (mBluetoothLeService != null) {
-            final boolean result = mBluetoothLeService.connect(mDeviceAddress);
+            final boolean result = mBluetoothLeService.connect(bluetoothDevice.getAddress());
             Log.d(TAG, "Connect request result=" + result);
         }
     }
@@ -218,7 +224,7 @@ public class DeviceControlActivity extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_connect:
-                mBluetoothLeService.connect(mDeviceAddress);
+                mBluetoothLeService.connect(bluetoothDevice.getAddress());
                 return true;
             case R.id.menu_disconnect:
                 mBluetoothLeService.disconnect();
@@ -288,6 +294,9 @@ public class DeviceControlActivity extends Activity {
                     List<BluetoothGattCharacteristic> chars = s.getCharacteristics();
                     totalCharacteristics += chars.size();
                 }
+                if (totalCharacteristics == 0) {
+                    Log.d(TAG, "NO Characteristics");
+                }
 
                 final int final_totalCharacteristics = totalCharacteristics;
 
@@ -300,6 +309,36 @@ public class DeviceControlActivity extends Activity {
                             Toast.makeText(context, "Android version 4.3 detected, max 4 notifications enabled", Toast.LENGTH_LONG).show();
                         }
                     });
+                }
+
+                for (int ii = 0; ii < gattServices.size(); ii++) {
+                    BluetoothGattService bluetoothGattService = gattServices.get(ii);
+                    List<BluetoothGattCharacteristic> chars = bluetoothGattService.getCharacteristics();
+                    if (chars.size() == 0) {
+
+                        Log.d("DeviceActivity", "No characteristics found for this service !!!");
+                        return;
+                    }
+
+                    servicesDiscovered++;
+                    final float serviceDiscoveredcalc = (float) servicesDiscovered;
+                    final float serviceTotalcalc = (float) gattServices.size();
+
+
+                    if (SensorTagHumidityProfile.isCorrectService(bluetoothGattService)) {
+                        SensorTagHumidityProfile hum = new SensorTagHumidityProfile(bluetoothGattService, bluetoothDevice, mBluetoothLeService);
+                        mProfiles.add(hum);
+                        if (nrNotificationsOn < maxNotifications) {
+                            hum.configureService();
+                            nrNotificationsOn++;
+                        }
+                        Log.d("DeviceActivity", "Found Humidity !");
+                    }
+
+                }
+
+                for (final GenericBLEServices p : mProfiles) {
+                    p.enableService();
                 }
             }
         };

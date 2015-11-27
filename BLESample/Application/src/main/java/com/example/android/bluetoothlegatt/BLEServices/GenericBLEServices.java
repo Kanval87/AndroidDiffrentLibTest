@@ -8,7 +8,9 @@ import android.util.Log;
 
 import com.example.android.bluetoothlegatt.BluetoothLeService;
 
-public class GenericBLEServices {
+import java.util.Map;
+
+public abstract class GenericBLEServices {
     protected BluetoothGattService bluetoothGattService;
     protected BluetoothDevice bluetoothDevice;
     protected BluetoothLeService bluetoothLeService;
@@ -90,6 +92,10 @@ public class GenericBLEServices {
     public void setIsEnabled(boolean isEnabled) {
         this.isEnabled = isEnabled;
     }
+
+    public abstract void didUpdateValueForCharacteristic(BluetoothGattCharacteristic c);
+
+    public abstract Map<String, String> getMQTTMap();
 
     public void printError(String msg, BluetoothGattCharacteristic c, int error) {
         try {
