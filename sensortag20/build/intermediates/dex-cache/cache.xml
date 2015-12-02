@@ -2,13 +2,6 @@
 <items version="2" >
 
     <item
-        jar="/home/kanvalkalra/AndroidStudioProjects/VolleyExample/sensortag20/BleSensorTag/libs/org.eclipse.paho.client.mqttv3-1.0.2.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="02e433eb0fda11fe7170cf8214ba2f4d165c29b6">
-        <dex dex="/home/kanvalkalra/AndroidStudioProjects/VolleyExample/sensortag20/BleSensorTag/build/intermediates/pre-dexed/debug/org.eclipse.paho.client.mqttv3-1.0.2-4e6268f039643513c780bd1602e985684eb4adc1.jar" />
-    </item>
-    <item
         jar="/home/kanvalkalra/Android/sdk/extras/android/m2repository/com/android/support/support-v4/19.1.0/support-v4-19.1.0.jar"
         jumboMode="false"
         revision="21.1.2"
@@ -21,6 +14,13 @@
         revision="21.1.2"
         sha1="3b8420e57139cc627a55be0c17b6687e92d7460f">
         <dex dex="/home/kanvalkalra/AndroidStudioProjects/VolleyExample/sensortag20/BleSensorTag/build/intermediates/pre-dexed/debug/org.eclipse.paho.android.service-1.0.2-33d4cef32aea2532888fa521a373293aa6a6904b.jar" />
+    </item>
+    <item
+        jar="/home/kanvalkalra/AndroidStudioProjects/VolleyExample/sensortag20/BleSensorTag/libs/org.eclipse.paho.client.mqttv3-1.0.2.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="02e433eb0fda11fe7170cf8214ba2f4d165c29b6">
+        <dex dex="/home/kanvalkalra/AndroidStudioProjects/VolleyExample/sensortag20/BleSensorTag/build/intermediates/pre-dexed/debug/org.eclipse.paho.client.mqttv3-1.0.2-4e6268f039643513c780bd1602e985684eb4adc1.jar" />
     </item>
 
 </items>

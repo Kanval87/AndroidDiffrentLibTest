@@ -153,6 +153,7 @@ public class BluetoothLeService extends Service {
 
         @Override
         public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
+            Log.d(TAG, "onConnectionStateChange");
             if (mBluetoothGatt == null) {
                 // Log.e(TAG, "mBluetoothGatt not created!");
                 return;
@@ -183,17 +184,20 @@ public class BluetoothLeService extends Service {
 
         @Override
         public void onServicesDiscovered(BluetoothGatt gatt, int status) {
+            Log.d(TAG, "onServicesDiscovered");
             BluetoothDevice device = gatt.getDevice();
             broadcastUpdate(ACTION_GATT_SERVICES_DISCOVERED, device.getAddress(), status);
         }
 
         @Override
         public void onCharacteristicChanged(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic) {
+            Log.d(TAG, "onCharacteristicChanged");
             broadcastUpdate(ACTION_DATA_NOTIFY, characteristic, BluetoothGatt.GATT_SUCCESS);
         }
 
         @Override
         public void onCharacteristicRead(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic, int status) {
+            Log.d(TAG, "onCharacteristicRead");
             if (blocking) unlockBlockingThread(status);
             if (nonBlockQueue.size() > 0) {
                 lock.lock();
@@ -212,6 +216,7 @@ public class BluetoothLeService extends Service {
 
         @Override
         public void onCharacteristicWrite(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic, int status) {
+            Log.d(TAG, "onCharacteristicWrite");
             if (blocking) unlockBlockingThread(status);
             if (nonBlockQueue.size() > 0) {
                 lock.lock();
@@ -230,12 +235,14 @@ public class BluetoothLeService extends Service {
 
         @Override
         public void onDescriptorRead(BluetoothGatt gatt, BluetoothGattDescriptor descriptor, int status) {
+            Log.d(TAG, "onConnectionStateChange");
             if (blocking) unlockBlockingThread(status);
             unlockBlockingThread(status);
         }
 
         @Override
         public void onDescriptorWrite(BluetoothGatt gatt, BluetoothGattDescriptor descriptor, int status) {
+            Log.d(TAG, "onConnectionStateChange");
             if (blocking) unlockBlockingThread(status);
             // Log.i(TAG, "onDescriptorWrite: " + descriptor.getUuid().toString());
         }

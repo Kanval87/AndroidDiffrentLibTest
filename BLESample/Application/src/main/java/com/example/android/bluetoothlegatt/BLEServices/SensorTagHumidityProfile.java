@@ -1,65 +1,37 @@
 package com.example.android.bluetoothlegatt.BLEServices;
 
 
-import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothGattCharacteristic;
-import android.bluetooth.BluetoothGattService;
-import android.util.Log;
-
 import com.example.android.bluetoothlegatt.BluetoothLeService;
-import com.example.android.bluetoothlegatt.SensorTagGatt;
 import com.example.android.bluetoothlegatt.utils.Point3D;
-import com.example.android.bluetoothlegatt.utils.Sensor;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.UUID;
 
-public class SensorTagHumidityProfile extends GenericBLEServices {
+public class SensorTagHumidityProfile extends BleGenericSensor {
 
 
     private static final String TAG = SensorTagHumidityProfile.class.getSimpleName();
+    private double humidity;
 
-    public SensorTagHumidityProfile(BluetoothGattService bluetoothGattService, BluetoothDevice bluetoothDevice, BluetoothLeService bluetoothLeService) {
-        super(bluetoothGattService, bluetoothDevice, bluetoothLeService);
-
-        List<BluetoothGattCharacteristic> characteristics = this.bluetoothGattService.getCharacteristics();
-
-        for (BluetoothGattCharacteristic c : characteristics) {
-            if (c.getUuid().toString().equals(SensorTagGatt.UUID_HUM_DATA.toString())) {
-                this.dataBluetoothGattCharacteristic = c;
-            }
-            if (c.getUuid().toString().equals(SensorTagGatt.UUID_HUM_CONF.toString())) {
-                this.configBluetoothGattCharacteristic = c;
-            }
-            if (c.getUuid().toString().equals(SensorTagGatt.UUID_HUM_PERI.toString())) {
-                this.periodBluetoothGattCharacteristic = c;
-            }
-        }
-
+    public SensorTagHumidityProfile(UUID serviceUuid, BluetoothLeService mBluetoothLeService) {
+        super(serviceUuid, mBluetoothLeService);
+        this.humidity = 0.0;
     }
 
     @Override
-    public void didUpdateValueForCharacteristic(BluetoothGattCharacteristic c) {
-        byte[] value = c.getValue();
-        if (c.equals(this.dataBluetoothGattCharacteristic)) {
-            Point3D v = Sensor.HUMIDITY.convert(value);
-            Log.d(TAG, String.format("%.1f %%rH", v.x));
-        }
+    public Point3D convert(byte[] value) {
+        int a = shortUnsignedAtOffset(value, 2);
+        // bits [1..0] are status bits and need to be cleared according
+        // to the user guide, but the iOS code doesn't bother. It should
+        // have minimal impact.
+        a = a - (a % 4);
+        this.humidity = (-6f) + 125f * (a / 65535f);
+        return new Point3D(this.humidity, 0, 0);
     }
 
     @Override
-    public Map<String, String> getMQTTMap() {
-        Point3D v = Sensor.HUMIDITY.convert(this.dataBluetoothGattCharacteristic.getValue());
-        Map<String, String> map = new HashMap<String, String>();
-        map.put("humidity", String.format("%.2f", v.x));
-        return map;
+    public String toString() {
+        return this.humidity + " rH";
     }
 
-    public static boolean isCorrectService(BluetoothGattService s) {
-        if ((s.getUuid().toString().compareTo(SensorTagGatt.UUID_HUM_SERV.toString())) == 0) {//service.getUuid().toString().compareTo(SensorTagGatt.UUID_HUM_DATA.toString())) {
-            Log.d("Test", "Match !");
-            return true;
-        } else return false;
-    }
+
 }
