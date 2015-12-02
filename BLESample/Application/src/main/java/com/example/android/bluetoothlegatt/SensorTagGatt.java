@@ -195,7 +195,7 @@ public class SensorTagGatt {
     /**
      * Gives the configure UUID corresponding to the input service UUID (as String).
      */
-    public static String servToConfig(String serviceUuid, String defaultName) {
+    public static String configCharacteristicsOfService(String serviceUuid, String defaultName) {
         String name = serverToConfig.get(serviceUuid);
         return name == null ? defaultName : name;
     }
@@ -203,7 +203,7 @@ public class SensorTagGatt {
     /**
      * Gives the data UUID corresponding to the input service UUID (as String).
      */
-    public static String servToData(String serviceUuid, String defaultName) {
+    public static String dataCharacteristicsOfService(String serviceUuid, String defaultName) {
         String name = serverToData.get(serviceUuid);
         return name == null ? defaultName : name;
     }
@@ -211,7 +211,7 @@ public class SensorTagGatt {
     /**
      * Gives the period UUID corresponding to the input service UUID (as String).
      */
-    public static String servToPeri(String serviceUuid, String defaultName) {
+    public static String periodCharacteristicsOfService(String serviceUuid, String defaultName) {
         String name = serverToPeriod.get(serviceUuid);
         return name == null ? defaultName : name;
     }

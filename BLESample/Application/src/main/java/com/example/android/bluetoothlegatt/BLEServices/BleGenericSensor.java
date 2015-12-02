@@ -90,7 +90,7 @@ public abstract class BleGenericSensor {
     public void turnOnService() {
         BluetoothGattService service = this.mBluetoothLeService.getService(this.serviceUuid);
         if (service == null) return;
-        UUID configUuid = UUID.fromString(SensorTagGatt.servToConfig(this.serviceUuid.toString(), "Default"));
+        UUID configUuid = UUID.fromString(SensorTagGatt.configCharacteristicsOfService(this.serviceUuid.toString(), "Default"));
         BluetoothGattCharacteristic configCharacteristic = service.getCharacteristic(configUuid);
         configCharacteristic.setValue(new byte[]{1});
         // Special case: Movement
@@ -111,7 +111,7 @@ public abstract class BleGenericSensor {
     public void unableNotifications() {
         BluetoothGattService service = this.mBluetoothLeService.getService(this.serviceUuid);
         if (service == null) return;
-        UUID dataUuid = UUID.fromString(SensorTagGatt.servToData(serviceUuid.toString(), "Default"));
+        UUID dataUuid = UUID.fromString(SensorTagGatt.dataCharacteristicsOfService(serviceUuid.toString(), "Default"));
         BluetoothGattCharacteristic dataCharacteristic = service.getCharacteristic(dataUuid);
         this.mBluetoothLeService.setCharacteristicNotification(dataCharacteristic, true); // Enabled locally.
         this.mBluetoothLeService.writeDescriptor(dataCharacteristic); // Enabled remotely.
@@ -128,7 +128,7 @@ public abstract class BleGenericSensor {
     public void setPeriod() {
         BluetoothGattService service = this.mBluetoothLeService.getService(this.serviceUuid);
         if (service == null) return;
-        UUID periUuid = UUID.fromString(SensorTagGatt.servToPeri(this.serviceUuid.toString(), "default"));
+        UUID periUuid = UUID.fromString(SensorTagGatt.periodCharacteristicsOfService(this.serviceUuid.toString(), "default"));
         BluetoothGattCharacteristic periodCharacteristic = service.getCharacteristic(periUuid);
         periodCharacteristic.setValue(new byte[]{SensorTagGatt.optimalPeriod(this.serviceUuid.toString())});
         this.mBluetoothLeService.writeCharacteristic(periodCharacteristic);
